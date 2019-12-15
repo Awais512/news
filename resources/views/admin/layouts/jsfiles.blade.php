@@ -11,6 +11,7 @@
 <script src="{{asset('admin/assets/js/lib/vector-map/jquery.vmap.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/lib/vector-map/jquery.vmap.sampledata.js')}}"></script>
 <script src="{{asset('admin/assets/js/lib/vector-map/country/jquery.vmap.world.js')}}"></script>
+<script src="{{asset('admin/assets/js/lib/chosen/chosen.jquery.min.js')}}"></script>
     <script>
         ( function ( $ ) {
             "use strict";
@@ -29,3 +30,15 @@
             } );
         } )( jQuery );
     </script>
+
+<script>
+jQuery(document).ready(function() {
+            jQuery(".standardSelect").chosen({
+                disable_search_threshold: 10,
+                no_results_text: "Oops, nothing found!",
+                width: "100%"
+            });
+        });
+</script>
+
+
