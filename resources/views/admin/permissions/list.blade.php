@@ -51,7 +51,9 @@
                   @endif
                     <div class="card-header">
                         <strong class="card-title">{{$page_name}}</strong>
+                        @permission(['Post Add','All'])
                     <a href="{{route('admin.permission.create')}}" class="btn btn-primary pull-right">Create</a>
+                    @endpermission
                     </div>
                     <div class="card-body">
               <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -70,11 +72,15 @@
                     <td>{{$permission->display_name}}</td>
                     <td>{{$permission->description}}</td>
                     <td>
+                      @permission(['Post Add', 'All'])
                     <a href="{{route('admin.permission.edit', $permission->id)}}" class="btn btn-sm btn-info">Edit</a>
+                    @endpermission
                     <form action="{{route('admin.permission.delete', $permission->id)}}" style="display:inline" method="POST">
                       @csrf
                       @method('DELETE')
+                      @permission(['Post Add', 'All'])
                     <button type="submit" style="display:inline" class="btn btn-danger btn-sm">Delete</button>
+                    @endpermission
                     </form>
                     </td>
                   </tr>                      

@@ -18,7 +18,7 @@ class RoleController extends Controller
     public function index()
     {
         $page_name = 'Roles';
-        $roles = Role::all();
+        $roles = Role::latest()->get();
         return view('admin.roles.list', compact('page_name', 'roles'));
     }
 
