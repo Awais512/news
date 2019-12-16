@@ -101,7 +101,28 @@ class AuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'role.*' => 'required'
+        ], [
+            'name.required' => 'Name Field is Required',
+            'email.required' => 'Email field is required',
+            'email.email' => 'Invalid email format',
+            'password.min' => 'Password must be atleast 6 characters',
+        ]);
+        $author = User::findOrFail($id);
+        $author->name = $request->name;
+        $author->email = $request->email;
+        $author->password = Hash::make($request->password);
+        $author->type = 2;
+        $author->update();
+        DB::table('role_user')->where('user_id', $id)->delete();
+        foreach ($request->role as $value) {
+            $author->attachRole($value);
+        }
+        return redirect(route('author.index'))->with('success', 'Author Updated Successfully');
     }
 
     /**
@@ -112,6 +133,8 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $author = User::findOrfail($id);
+        $author->delete();
+        return redirect()->back()->with('success', 'Author Deleted Successfully');
     }
 }

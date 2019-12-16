@@ -81,7 +81,7 @@
                     </td>
                     <td>
                     <a href="{{route('author.edit', $author->id)}}" class="btn btn-sm btn-info">Edit</a>
-                    <form action="#" style="display:inline" method="POST">
+                    <form action="{{route('author.delete', $author->id)}}" style="display:inline" method="POST">
                       @csrf
                       @method('DELETE')
                     <button type="submit" style="display:inline" class="btn btn-danger btn-sm">Delete</button>

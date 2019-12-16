@@ -36,8 +36,8 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::get('/author/create', 'Admin\AuthorController@create')->name('author.create');
     Route::post('/author/store', 'Admin\AuthorController@store')->name('author.store');
     Route::get('/author/edit/{id}', 'Admin\AuthorController@edit')->name('author.edit');
-    Route::get('/author/update/{id}', 'Admin\AuthorController@update')->name('author.update');
-    Route::get('/author/destroy/{id}', 'Admin\AuthorController@destroy')->name('author.delete');
+    Route::put('/author/update/{id}', 'Admin\AuthorController@update')->name('author.update');
+    Route::delete('/author/destroy/{id}', 'Admin\AuthorController@destroy')->name('author.delete');
 });
 //->name('admin.edit.role') ->name('admin.create.role')
 
