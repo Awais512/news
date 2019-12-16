@@ -29,6 +29,15 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::get('/role', 'Admin\RoleController@index')->name('admin.role.list');
     Route::get('/role/create', 'Admin\RoleController@create')->name('admin.role.create');
     Route::post('/role/store', 'Admin\RoleController@store')->name('admin.role.store');
+    Route::get('/role/edit/{id}', 'Admin\RoleController@edit')->name('admin.role.edit');
+    Route::put('/role/update/{id}', 'Admin\RoleController@update')->name('admin.role.update');
+    Route::delete('/role/delete/{id}', 'Admin\RoleController@destroy')->name('admin.role.delete');
+    Route::get('/author', 'Admin\AuthorController@index')->name('author.index');
+    Route::get('/author/create', 'Admin\AuthorController@create')->name('author.create');
+    Route::post('/author/store', 'Admin\AuthorController@store')->name('author.store');
+    Route::get('/author/edit/{id}', 'Admin\AuthorController@edit')->name('author.edit');
+    Route::get('/author/update/{id}', 'Admin\AuthorController@update')->name('author.update');
+    Route::get('/author/destroy/{id}', 'Admin\AuthorController@destroy')->name('author.delete');
 });
 //->name('admin.edit.role') ->name('admin.create.role')
 

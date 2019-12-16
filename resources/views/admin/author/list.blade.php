@@ -51,41 +51,37 @@
                   @endif
                     <div class="card-header">
                         <strong class="card-title">{{$page_name}}</strong>
-                    <a href="{{route('admin.role.create')}}" class="btn btn-primary pull-right">Create</a>
+                    <a href="{{route('author.create')}}" class="btn btn-primary pull-right">Create</a>
                     </div>
                     <div class="card-body">
               <table id="bootstrap-data-table" class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th>No</th>
+                    <th>#</th>
                     <th>Name</th>
-                    <th>Display Name</th>
-                    <th>Description</th>
-                    <th>Permissions</th>
+                    <th>Email</th>
+                    <th>Role</th>
                     <th>Options</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($roles as $i=>$role)
+                  @foreach ($authors as $i=>$author)
                   <tr>
-                  <td>{{++$i}}</td>
-                  <td>{{$role->name}}</td>
-                  <td>{{$role->display_name}}</td>
-                  <td>{{$role->description}}</td>
-                  <td>
-                    @if ($role->perms())
-                        <ul style="margin-left:20px">
-                          @foreach ($role->perms()->get() as $permission)
-                         <li>{{$permission->name}}</li>
-                          @endforeach
-                        </ul>
-                    @endif
-                  </td>
+                    <td>{{++$i}}</td>
+                    <td>{{$author->name}}</td>
+                    <td>{{$author->email}}</td>
                     <td>
-                      {{-- {{route('admin.permission.edit', $permission->id)}} --}}
-                      {{-- {{route('admin.permission.delete', $permission->id)}} --}}
-                    <a href="{{route('admin.role.edit', $role->id)}}" class="btn btn-sm btn-info">Edit</a>
-                    <form action="{{route('admin.role.delete', $role->id)}}" style="display:inline" method="POST">
+                        @if ($author->roles()->get())
+                            <ul style="padding:20px: margin:20px">
+                                @foreach ($author->roles()->get() as $role)
+                                <li>{{$role->name}}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </td>
+                    <td>
+                    <a href="{{route('author.edit', $author->id)}}" class="btn btn-sm btn-info">Edit</a>
+                    <form action="#" style="display:inline" method="POST">
                       @csrf
                       @method('DELETE')
                     <button type="submit" style="display:inline" class="btn btn-danger btn-sm">Delete</button>

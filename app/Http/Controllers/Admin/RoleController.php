@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Permission;
 use App\Role;
+use DB;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -17,7 +18,8 @@ class RoleController extends Controller
     public function index()
     {
         $page_name = 'Roles';
-        return view('admin.roles.list', compact('page_name'));
+        $roles = Role::all();
+        return view('admin.roles.list', compact('page_name', 'roles'));
     }
 
     /**
@@ -80,7 +82,10 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $permission = Permission::pluck('name', 'id');
+        $selectedPermission = DB::table('permission_role')->where('permission_role.role_id', $id)->pluck('permission_id')->toArray();
+        return view('admin.roles.edit', compact('role', 'permission', 'selectedPermission'));
     }
 
     /**
@@ -92,7 +97,26 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'permission' => 'required|array',
+            'permission.*' => 'required'
+        ], [
+            'name.required' => 'Name Field is Required',
+            'permission.required' => 'You must select permission',
+            'permission.*.required' => 'You must select a permission'
+        ]);
+        $role =  Role::findOrFail($id);
+        $role->name = $request->name;
+        $role->display_name = $request->display_name;
+        $role->name = $request->name;
+        $role->description = $request->description;
+        $role->save();
+        DB::table('permission_role')->where('role_id', $id)->delete();
+        foreach ($request->permission as $value) {
+            $role->attachPermission($value);
+        }
+        return redirect(route('admin.role.list'))->with('success', 'Role Updated Successfully');
     }
 
     /**
@@ -103,6 +127,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $role->delete();
+        return redirect()->back()->with('success', 'Role deleted successfully');
     }
 }
