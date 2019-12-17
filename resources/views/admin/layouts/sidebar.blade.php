@@ -31,6 +31,12 @@
                     <a href="{{route('author.index')}}"> <i class="menu-icon fa fa-laptop"></i>Authors</a>
                 </li>
                 @endpermission
+
+                 @permission(['Category List', 'All'])
+                <li>
+                    <a href="{{route('admin.category')}}"> <i class="menu-icon fa fa-laptop"></i>Categories</a>
+                </li>
+                @endpermission
                 <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>

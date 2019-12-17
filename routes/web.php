@@ -17,7 +17,7 @@ Route::get('/details', 'DetailsPageController@index')->name('users.details');
 
 Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
-    Route::get('/category', 'Admin\CategoryController@index')->name('admin.category');
+    Route::get('/category', ['uses' => 'Admin\CategoryController@index', 'as' => 'admin.category', 'middleware' => 'permission:Category List|All']);
     Route::get('/category/create', 'Admin\CategoryController@create')->name('admin.createCategory');
     Route::get('/category/edit', 'Admin\CategoryController@edit')->name('admin.editCategory');
     Route::get('/permission/create', ['uses' => 'Admin\PermissionsController@create', 'as' => 'admin.permission.create', 'middleware' => 'permission:Permission List|All']);
