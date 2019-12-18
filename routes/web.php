@@ -43,13 +43,13 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::delete('/author/destroy/{id}', 'Admin\AuthorController@destroy')->name('author.delete');
 
     //Categories backend Routes
-    Route::get('/category', 'Admin\CategoryController@index')->name('admin.category.list');
-    Route::get('/category/create', 'Admin\CategoryController@create')->name('admin.category.create');
-    Route::post('/category/store', 'Admin\CategoryController@store')->name('admin.category.store');
-    Route::get('/category/edit/{id}', 'Admin\CategoryController@edit')->name('admin.category.edit');
-    Route::put('/category/update/{id}', 'Admin\CategoryController@update')->name('admin.category.update');
-    Route::delete('/category/destroy/{id}', 'Admin\CategoryController@destroy')->name('admin.category.destroy');
-    Route::put('/category/status/{id}', 'Admin\CategoryController@status')->name('admin.category.status');
+    Route::get('/category', ['uses' => 'Admin\CategoryController@index', 'as' => 'admin.category.list', 'middleware' => 'permission:Category List|All']);
+    Route::get('/category/create', ['uses' => 'Admin\CategoryController@create', 'as' => 'admin.category.create', 'middleware' => 'permission:Category Create|All']);
+    Route::post('/category/store', ['uses' => 'Admin\CategoryController@store', 'as' => 'admin.category.store', 'middleware' => 'permission:Category Store|All']);
+    Route::get('/category/edit/{id}', ['uses' => 'Admin\CategoryController@edit', 'as' => 'admin.category.edit', 'middleware' => 'permission:Category Edit|All']);
+    Route::put('/category/update/{id}', ['uses' => 'Admin\CategoryController@update', 'as' => 'admin.category.update', 'middleware' => 'permission:Category Update|All']);
+    Route::delete('/category/destroy/{id}', ['uses' => 'Admin\CategoryController@destroy', 'as' => 'admin.category.destroy', 'middleware' => 'permission:Category Delete|All']);
+    Route::put('/category/status/{id}', ['uses' => 'Admin\CategoryController@status', 'as' => 'admin.category.status', 'middleware' => 'permission:Category Store|All']);
 });
 //->name('admin.edit.role') ->name('admin.create.role')
 
