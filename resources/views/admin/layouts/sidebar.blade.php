@@ -34,7 +34,7 @@
 
                  @permission(['Category List', 'All'])
                 <li>
-                    <a href="{{route('admin.category')}}"> <i class="menu-icon fa fa-laptop"></i>Categories</a>
+                    <a href="{{route('admin.category.list')}}"> <i class="menu-icon fa fa-laptop"></i>Categories</a>
                 </li>
                 @endpermission
                 <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
