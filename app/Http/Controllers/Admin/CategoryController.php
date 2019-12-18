@@ -51,8 +51,33 @@ class CategoryController extends Controller
         return redirect(route('admin.category.list'))->with('success', 'Categories status Successfully changed');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return view('admin.category.edit');
+        $page_name = "Edit Category";
+        $category = Category::findOrFail($id);
+        return view('admin.category.edit', compact('page_name', 'category'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required'
+        ], [
+            'name.required' => 'Name field is required'
+        ]);
+
+        $category = Category::findOrFail($id);
+        $category->name = $request->name;
+        $category->status = 1;
+        $category->update();
+
+        return redirect(route('admin.category.list'))->with('success', 'Categories updated Successfully');
+    }
+
+    public function destroy($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return redirect()->back()->with('success', 'Category Deleted Successfully');
     }
 }

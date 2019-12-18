@@ -48,7 +48,7 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::post('/category/store', 'Admin\CategoryController@store')->name('admin.category.store');
     Route::get('/category/edit/{id}', 'Admin\CategoryController@edit')->name('admin.category.edit');
     Route::put('/category/update/{id}', 'Admin\CategoryController@update')->name('admin.category.update');
-    Route::get('/category/destroy/{id}', 'Admin\CategoryController@destroy')->name('admin.category.destroy');
+    Route::delete('/category/destroy/{id}', 'Admin\CategoryController@destroy')->name('admin.category.destroy');
     Route::put('/category/status/{id}', 'Admin\CategoryController@status')->name('admin.category.status');
 });
 //->name('admin.edit.role') ->name('admin.create.role')

@@ -83,7 +83,7 @@
                         <a href="{{route('admin.category.edit', $category->id)}}" class="btn btn-primary">Edit</a>
                         @endpermission
                         @permission(['Post Add', 'All'])
-                            {{Form::open(['method' => 'DELETE', 'url'=> ['admin.category.destroy', $category->id], 'style'=> 'display:inline' ])}}
+                            {{Form::open(['method' => 'DELETE', 'url'=> ['back/category/destroy/'.$category->id], 'style'=> 'display:inline' ])}}
                             {{ Form::submit('Delete',['class' => 'btn btn-danger']) }}
                             {{ Form::close() }}
                         @endpermission
