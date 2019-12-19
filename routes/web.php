@@ -55,6 +55,9 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::get('/post', ['uses' => 'Admin\PostController@index', 'as' => 'admin.post.list', 'middleware' => 'permission:Post List|All']);
     Route::get('/post/create', ['uses' => 'Admin\PostController@create', 'as' => 'admin.post.create', 'middleware' => 'permission:Post Add|All']);
     Route::post('/post/store', ['uses' => 'Admin\PostController@store', 'as' => 'admin.post.store', 'middleware' => 'permission:Post Add|All']);
+    Route::get('/post/edit/{id}', ['uses' => 'Admin\PostController@edit', 'as' => 'admin.post.edit', 'middleware' => 'permission:Post Update|All']);
+    Route::put('/post/update/{id}', ['uses' => 'Admin\PostController@update', 'as' => 'admin.post.update', 'middleware' => 'permission:Post Update|All']);
+    Route::delete('/post/delete/{id}', ['uses' => 'Admin\PostController@destroy', 'as' => 'admin.post.destroy', 'middleware' => 'permission:Post Delete|All']);
     Route::put('/post/status/{id}', ['uses' => 'Admin\PostController@status', 'as' => 'admin.post.status', 'middleware' => 'permission:Post List|All']);
     Route::put('/post/hot/{id}', ['uses' => 'Admin\PostController@hot', 'as' => 'admin.post.hot', 'middleware' => 'permission:Post List|All']);
 });

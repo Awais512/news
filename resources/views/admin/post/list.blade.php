@@ -104,9 +104,9 @@
                   </td>
                     <td>
                       @permission(['Post Add', 'All'])
-                    <a href="{{route('admin.permission.edit', $post->id)}}" class="btn btn-sm btn-info">Edit</a>
+                    <a href="{{route('admin.post.edit', $post->id)}}" class="btn btn-sm btn-info">Edit</a>
                     @endpermission
-                    <form action="{{route('admin.permission.delete', $post->id)}}" style="display:inline" method="POST">
+                    <form action="{{route('admin.post.destroy', $post->id)}}" style="display:inline" method="POST">
                       @csrf
                       @method('DELETE')
                       @permission(['Post Add', 'All'])

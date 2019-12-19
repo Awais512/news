@@ -106,7 +106,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_name = 'Post Create Page';
+        $post = Post::findOrFail($id);
+        $categories = Category::where('status', 1)->pluck('name', 'id');
+        return view('admin.post.edit', compact('page_name', 'post', 'categories'));
     }
 
     /**
@@ -118,7 +121,39 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'short_desc' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $post =  Post::findOrFail($id);
+        if ($request->file('image')) {
+            @unlink(public_path('/post/' . $post->main_image));
+            @unlink(public_path('/post/' . $post->thumb_image));
+            @unlink(public_path('/post/' . $post->list_image));
+
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $main_image = 'post_main_' . $post->id . '.' . $extension;
+            $thumb_image = 'post_thumb_' . $post->id . '.' . $extension;
+            $list_image = 'post_list_' . $post->id . '.' . $extension;
+            Image::make($file)->resize(653, 569)->save(public_path('post/' . $main_image));
+            Image::make($file)->resize(360, 309)->save(public_path('post/' . $thumb_image));
+            Image::make($file)->resize(122, 122)->save(public_path('post/' . $list_image));
+            $post->main_image = $main_image;
+            $post->thumb_image = $thumb_image;
+            $post->list_image = $list_image;
+        }
+        $post->title = $request->title;
+        $post->slug = str_slug($request->title, '-');
+        $post->short_desc = $request->short_desc;
+        $post->description = $request->description;
+        $post->category_id = $request->category_id;
+        $post->save();
+
+        return redirect(route('admin.post.list'))->with('success', 'Post Updated Successfully');
     }
 
     /**
