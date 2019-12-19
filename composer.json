@@ -10,13 +10,14 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "gghughunishvili/entrust": "^2.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
+        "laravel/helpers": "^1.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
         "laravelcollective/html": "^6.0",
-        "unisharp/laravel-filemanager": "~1.8",
-        "gghughunishvili/entrust": "^2.0"
+        "unisharp/laravel-filemanager": "~1.8"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

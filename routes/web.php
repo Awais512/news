@@ -45,13 +45,18 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     //Categories backend Routes
     Route::get('/category', ['uses' => 'Admin\CategoryController@index', 'as' => 'admin.category.list', 'middleware' => 'permission:Category List|All']);
     Route::get('/category/create', ['uses' => 'Admin\CategoryController@create', 'as' => 'admin.category.create', 'middleware' => 'permission:Category Create|All']);
-    Route::post('/category/store', ['uses' => 'Admin\CategoryController@store', 'as' => 'admin.category.store', 'middleware' => 'permission:Category Store|All']);
+    Route::post('/category/store', ['uses' => 'Admin\CategoryController@store', 'as' => 'admin.category.store', 'middleware' => 'permission:Category Add|All']);
     Route::get('/category/edit/{id}', ['uses' => 'Admin\CategoryController@edit', 'as' => 'admin.category.edit', 'middleware' => 'permission:Category Edit|All']);
     Route::put('/category/update/{id}', ['uses' => 'Admin\CategoryController@update', 'as' => 'admin.category.update', 'middleware' => 'permission:Category Update|All']);
     Route::delete('/category/destroy/{id}', ['uses' => 'Admin\CategoryController@destroy', 'as' => 'admin.category.destroy', 'middleware' => 'permission:Category Delete|All']);
     Route::put('/category/status/{id}', ['uses' => 'Admin\CategoryController@status', 'as' => 'admin.category.status', 'middleware' => 'permission:Category Store|All']);
+
+    //Posts Backend Routes
+    Route::get('/post', ['uses' => 'Admin\PostController@index', 'as' => 'admin.post.list', 'middleware' => 'permission:Post List|All']);
+    Route::get('/post/create', ['uses' => 'Admin\PostController@create', 'as' => 'admin.post.create', 'middleware' => 'permission:Post Add|All']);
+    Route::post('/post/store', ['uses' => 'Admin\PostController@store', 'as' => 'admin.post.store', 'middleware' => 'permission:Post Add|All']);
 });
-//->name('admin.edit.role') ->name('admin.create.role')
+
 
 Auth::routes();
 

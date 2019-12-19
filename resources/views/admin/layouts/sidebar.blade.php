@@ -37,5 +37,11 @@
                     <a href="{{route('admin.category.list')}}"> <i class="menu-icon fa fa-laptop"></i>Categories</a>
                 </li>
                 @endpermission
+
+                @permission(['Post List', 'All'])
+                <li>
+                    <a href="{{route('admin.post.list')}}"> <i class="menu-icon fa fa-laptop"></i>Posts</a>
+                </li>
+                @endpermission
     </nav>
 </aside><!-- /#left-panel -->
