@@ -21,9 +21,9 @@ class PostController extends Controller
     {
         $page_name = 'Posts';
         if (Auth::user()->type === 1 || Auth::user()->hasRole('Editor')) {
-            $posts = Post::orderBy('id', 'DESC')->get();
+            $posts = Post::with(['creator'])->orderBy('id', 'DESC')->get();
         } else {
-            $posts = Post::where('created_by', Auth::user()->id)->orderBy('id', 'DESC')->get();
+            $posts = Post::with(['creator'])->where('created_by', Auth::user()->id)->orderBy('id', 'DESC')->get();
         }
         return view('admin.post.list', compact('page_name', 'posts'));
     }
@@ -130,5 +130,33 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function status($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->status === 1) {
+            $post->status = 0;
+        } else {
+            $post->status = 1;
+        }
+
+        $post->save();
+
+        return redirect(route('admin.post.list'))->with('success', 'Post status Successfully changed');
+    }
+
+    public function hot($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->hot_news === 1) {
+            $post->hot_news = 0;
+        } else {
+            $post->hot_news = 1;
+        }
+
+        $post->save();
+
+        return redirect(route('admin.post.list'))->with('success', 'Hot news status Successfully changed');
     }
 }

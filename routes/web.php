@@ -55,6 +55,8 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::get('/post', ['uses' => 'Admin\PostController@index', 'as' => 'admin.post.list', 'middleware' => 'permission:Post List|All']);
     Route::get('/post/create', ['uses' => 'Admin\PostController@create', 'as' => 'admin.post.create', 'middleware' => 'permission:Post Add|All']);
     Route::post('/post/store', ['uses' => 'Admin\PostController@store', 'as' => 'admin.post.store', 'middleware' => 'permission:Post Add|All']);
+    Route::put('/post/status/{id}', ['uses' => 'Admin\PostController@status', 'as' => 'admin.post.status', 'middleware' => 'permission:Post List|All']);
+    Route::put('/post/hot/{id}', ['uses' => 'Admin\PostController@hot', 'as' => 'admin.post.hot', 'middleware' => 'permission:Post List|All']);
 });
 
 

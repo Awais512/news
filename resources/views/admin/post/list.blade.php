@@ -65,6 +65,7 @@
                     <th>Author</th>
                     <th>Views</th>
                     <th>Status</th>
+                    <th>Hot News</th>
                     <th>Options</th>
                   </tr>
                 </thead>
@@ -78,7 +79,9 @@
                         @endif
                     </td>
                     <td>{{$post->title}}</td>
-                    <td>Awais Chaudhary</td>
+                    <td>
+                      {{ $post->creator->name }}
+                    </td>
                     <td>{{$post->view_count}}</td>
                     <td>
                         {{ Form::open(['method'=> 'PUT', 'url' =>['back/post/status/'.$post->id], 'style'=>'display:inline']) }}
@@ -89,6 +92,16 @@
                         @endif
                       {{Form::close()}}
                     </td>
+
+                    <td>
+                      {{ Form::open(['method'=> 'PUT', 'url' =>['back/post/hot/'.$post->id], 'style'=>'display:inline']) }}
+                      @if ($post->hot_news===1)
+                          {{ Form::submit('No', ['class' =>'btn btn-danger']) }}
+                          @else 
+                          {{ Form::submit('Yes', ['class' =>'btn btn-success']) }}
+                      @endif
+                    {{Form::close()}}
+                  </td>
                     <td>
                       @permission(['Post Add', 'All'])
                     <a href="{{route('admin.permission.edit', $post->id)}}" class="btn btn-sm btn-info">Edit</a>
