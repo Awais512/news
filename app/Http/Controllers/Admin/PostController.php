@@ -164,7 +164,13 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        @unlink(public_path('/post/' . $post->main_image));
+        @unlink(public_path('/post/' . $post->thumb_image));
+        @unlink(public_path('/post/' . $post->list_image));
+        $post->delete();
+        return redirect()->back()->with('success', 'Post Updated Successfully');
     }
 
     public function status($id)
