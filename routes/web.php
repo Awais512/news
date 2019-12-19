@@ -60,6 +60,12 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::delete('/post/delete/{id}', ['uses' => 'Admin\PostController@destroy', 'as' => 'admin.post.destroy', 'middleware' => 'permission:Post Delete|All']);
     Route::put('/post/status/{id}', ['uses' => 'Admin\PostController@status', 'as' => 'admin.post.status', 'middleware' => 'permission:Post List|All']);
     Route::put('/post/hot/{id}', ['uses' => 'Admin\PostController@hot', 'as' => 'admin.post.hot', 'middleware' => 'permission:Post List|All']);
+
+    //Comments Backend Routes
+    Route::get('/comment/{id}', ['uses' => 'Admin\CommentController@index', 'as' => 'admin.comment.list', 'middleware' => 'permission:Post List|All']);
+    Route::put('/comment/status/{id}', ['uses' => 'Admin\CommentController@status', 'as' => 'admin.comment.status', 'middleware' => 'permission:Post List|All']);
+    Route::get('/comment/reply/{id}', ['uses' => 'Admin\CommentController@reply', 'as' => 'admin.comment.reply', 'middleware' => 'permission:Post List|All']);
+    Route::post('/comment/reply', ['uses' => 'Admin\CommentController@store', 'as' => 'admin.comment.replyStore', 'middleware' => 'permission:Post List|All']);
 });
 
 

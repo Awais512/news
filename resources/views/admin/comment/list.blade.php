@@ -51,41 +51,31 @@
                   @endif
                     <div class="card-header">
                         <strong class="card-title">{{$page_name}}</strong>
-                        @permission(['Post Add','All'])
-                    <a href="{{route('admin.post.create')}}" class="btn btn-primary pull-right">Create</a>
-                    @endpermission
-                    </div>
                     <div class="card-body">
               <table id="bootstrap-data-table" class="table table-striped table-bordered">
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Views</th>
+                    <th>Name</th>
+                    <th>Post</th>
+                    <th>Comment</th>
                     <th>Status</th>
-                    <th>Hot News</th>
                     <th>Options</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($posts as $i=>$post)
+                  @foreach ($comments as $i=>$comment)
                   <tr>
                     <td>{{++$i}}</td>
+                   
+                    <td>{{$comment->name}}</td>
                     <td>
-                        @if (file_exists(public_path('/post/').$post->thumb_image))
-                        <img src ="{{asset('post')}}/{{$post->thumb_image}}" class="img img-responsive" width="120" height="120">
-                        @endif
+                      {{ $comment->post->title }}
                     </td>
-                    <td>{{$post->title}}</td>
+                    <td>{{$comment->comment}}</td>
                     <td>
-                      {{ $post->creator->name }}
-                    </td>
-                    <td>{{$post->view_count}}</td>
-                    <td>
-                        {{ Form::open(['method'=> 'PUT', 'url' =>['back/post/status/'.$post->id], 'style'=>'display:inline']) }}
-                        @if ($post->status===1)
+                        {{ Form::open(['method'=> 'PUT', 'url' =>['back/comment/status/'.$comment->id], 'style'=>'display:inline']) }}
+                        @if ($comment->status===1)
                             {{ Form::submit('Unpublish', ['class' =>'btn btn-danger']) }}
                             @else 
                             {{ Form::submit('Publish', ['class' =>'btn btn-success']) }}
@@ -94,27 +84,9 @@
                     </td>
 
                     <td>
-                      {{ Form::open(['method'=> 'PUT', 'url' =>['back/post/hot/'.$post->id], 'style'=>'display:inline']) }}
-                      @if ($post->hot_news===1)
-                          {{ Form::submit('No', ['class' =>'btn btn-danger']) }}
-                          @else 
-                          {{ Form::submit('Yes', ['class' =>'btn btn-success']) }}
-                      @endif
-                    {{Form::close()}}
-                  </td>
-                    <td>
-                      @permission(['Post Add', 'All'])
-                    <a href="{{route('admin.comment.list', $post->id)}}" class="btn btn-sm btn-info">Comments</a>
-                    <a href="{{route('admin.post.edit', $post->id)}}" class="btn btn-sm btn-primary">Edit</a>
-                    @endpermission
-                    <form action="{{route('admin.post.destroy', $post->id)}}" style="display:inline" method="POST">
-                      @csrf
-                      @method('DELETE')
-                      @permission(['Post Add', 'All'])
-                    <button type="submit" style="display:inline" class="btn btn-danger btn-sm">Delete</button>
-                    @endpermission
-                    </form>
+                        <a href="{{route('admin.comment.reply', $comment->post_id)}}" class="btn btn-info">Reply</a>
                     </td>
+
                   </tr>                      
                   @endforeach
                 </tbody>
