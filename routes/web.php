@@ -66,6 +66,10 @@ Route::group(['prefix' => 'back', 'middleware' => 'auth'], function () {
     Route::put('/comment/status/{id}', ['uses' => 'Admin\CommentController@status', 'as' => 'admin.comment.status', 'middleware' => 'permission:Post List|All']);
     Route::get('/comment/reply/{id}', ['uses' => 'Admin\CommentController@reply', 'as' => 'admin.comment.reply', 'middleware' => 'permission:Post List|All']);
     Route::post('/comment/reply', ['uses' => 'Admin\CommentController@store', 'as' => 'admin.comment.replyStore', 'middleware' => 'permission:Post List|All']);
+
+    //Settings Backend Routes
+    Route::get('/settings', ['uses' => 'Admin\SettingController@index', 'as' => 'admin.settings.update', 'middleware' => 'permission:Post Update|All']);
+    Route::put('/settings/update', ['uses' => 'Admin\SettingController@update', 'as' => 'admin.settings.update', 'middleware' => 'permission:System Settings|All']);
 });
 
 

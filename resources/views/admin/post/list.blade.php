@@ -78,11 +78,11 @@
                         <img src ="{{asset('post')}}/{{$post->thumb_image}}" class="img img-responsive" width="120" height="120">
                         @endif
                     </td>
-                    <td>{{$post->title}}</td>
-                    <td>
+                    <td style="width:10%">{{$post->title}}</td>
+                    <td style="width:5%">
                       {{ $post->creator->name }}
                     </td>
-                    <td>{{$post->view_count}}</td>
+                    <td style="width:5%">{{$post->view_count}}</td>
                     <td>
                         {{ Form::open(['method'=> 'PUT', 'url' =>['back/post/status/'.$post->id], 'style'=>'display:inline']) }}
                         @if ($post->status===1)
@@ -93,7 +93,7 @@
                       {{Form::close()}}
                     </td>
 
-                    <td>
+                    <td style="width:5%">
                       {{ Form::open(['method'=> 'PUT', 'url' =>['back/post/hot/'.$post->id], 'style'=>'display:inline']) }}
                       @if ($post->hot_news===1)
                           {{ Form::submit('No', ['class' =>'btn btn-danger']) }}

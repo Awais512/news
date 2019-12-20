@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Category;
+use App\Post;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +26,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $categories = Category::where('status', 1)->get();
+        $authors = User::where('id', '!=', 1)->get();
+        $popular_news = Post::where('status', 1)->orderBy('view_count', 'DESC')->limit(5)->get();
+        $share = array(
+            'categories' => $categories,
+            'authors' => $authors,
+            'popular_news' => $popular_news
+        );
+        view()->share('share', $share);
     }
 }

@@ -43,5 +43,11 @@
                     <a href="{{route('admin.post.list')}}"> <i class="menu-icon fa fa-laptop"></i>Posts</a>
                 </li>
                 @endpermission
+
+                @permission(['System Settings', 'All'])
+                <li>
+                    <a href="{{route('admin.settings.update')}}"> <i class="menu-icon fa fa-laptop"></i>Settings</a>
+                </li>
+                @endpermission
     </nav>
 </aside><!-- /#left-panel -->
