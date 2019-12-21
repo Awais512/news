@@ -48,33 +48,33 @@
             </div>
             <!-- col-md-7 -->
 
-            <div class="col-md-5">
+            @foreach ($top_viewed as $top)
+            <div class="col-md-5" style="margin-bottom:3%">
+                
                 <div class="feature_static_wrapper">
                     <div class="feature_article_img">
-                    <img class="img-responsive" src="{{asset('front/assets/img/feature-static1.jpg')}}" alt="feature-top">
+                    <img class="img-responsive" width="450" style="height:270px" src="{{asset('/post/'. $top->main_image)}}" alt="{{$top->title}}">
                     </div>
                     <!-- feature_article_img -->
 
                     <div class="feature_article_inner">
                         <div class="tag_lg purple"><a href="category.html">Top Viewed</a></div>
                         <div class="feature_article_title">
-                            <h1><a href="single.html" target="_self">Alcatel's $180 Idol 3 4.7 is a </a></h1>
+                        <h1><a href="{{url('/details')}}/{{$top->slug}}">{{str_limit($top->title, 25, '...')}}</a></h1>
                         </div>
                         <!-- feature_article_title -->
 
-                        <div class="feature_article_date"><a href="#" target="_self">Stive Clark</a>,<a href="#"
-                                                                                                         target="_self">Aug
-                            4, 2015</a></div>
+                    <div class="feature_article_date"><a href="{{url('/author')}}/{{$top->creator->id}}" target="_self">{{$top->creator->name}}</a>,<a href="{{url('/author')}}/{{$top->creator->id}}">
+                    {{date('F j, Y', strtotime($top->created_at))}}</a></div>
                         <!-- feature_article_date -->
 
                         <div class="feature_article_content">
-                            In a move to address mounting concerns about security on Android...
+                            {{ str_limit($top->short_desc, 50, '...')}}
                         </div>
                         <!-- feature_article_content -->
 
                         <div class="article_social">
-                            <span><i class="fa fa-share-alt"></i><a href="#">424</a>Shares</span>
-                            <span><i class="fa fa-comments-o"></i><a href="#">4</a>Comments</span>
+                        <span><i class="fa fa-comments-o"></i><a href="#">{{$top->comments_count}}</a>Comments</span>
                         </div>
                         <!-- article_social -->
 
@@ -86,46 +86,8 @@
 
             </div>
             <!-- col-md-5 -->
-
-            <div class="col-md-5">
-                <div class="feature_static_last_wrapper">
-                    <div class="feature_article_img">
-                    <img class="img-responsive" src="{{asset('front/assets/img/feature-static2.jpg')}}" alt="feature-top">
-                    </div>
-                    <!-- feature_article_img -->
-
-                    <div class="feature_article_inner">
-                        <div class="tag_lg blue"><a href="category.html">Top Viewed</a></div>
-
-                        <div class="feature_article_title">
-                            <h1><a href="single.html" target="_self">Gadget user good news</a></h1>
-                        </div>
-                        <!-- feature_article_title -->
-
-                        <div class="feature_article_date"><a href="#" target="_self">Stive Clark</a>,<a href="#"
-                                                                                                         target="_self">Aug
-                            4, 2015</a></div>
-                        <!-- feature_article_date -->
-
-                        <div class="feature_article_content">
-                            In a move to address mounting concerns about security on Android...
-                        </div>
-                        <!-- feature_article_content -->
-
-                        <div class="article_social">
-                            <span><i class="fa fa-share-alt"></i><a href="#">424</a>Shares</span>
-                            <span><i class="fa fa-comments-o"></i><a href="#">4</a>Comments</span>
-                        </div>
-                        <!-- article_social -->
-
-                    </div>
-                    <!-- feature_article_inner -->
-
-                </div>
-                <!-- feature_static_wrapper -->
-
-            </div>
-            <!-- col-md-5 -->
+            @endforeach
+         
 
         </div>
         <!-- Row -->
