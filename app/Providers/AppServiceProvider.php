@@ -31,11 +31,13 @@ class AppServiceProvider extends ServiceProvider
         $popular_news = Post::where('status', 1)->orderBy('view_count', 'DESC')->limit(5)->get();
         $most_commented = Post::withCount('comments')->where('status', 1)->orderBy('comments_count', 'DESC')->limit(5)->get();
 
+
         $share = array(
             'categories' => $categories,
             'authors' => $authors,
             'popular_news' => $popular_news,
-            'most_commented' => $most_commented
+            'most_commented' => $most_commented,
+
         );
         view()->share('share', $share);
     }
